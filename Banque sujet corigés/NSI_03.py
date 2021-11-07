@@ -1,3 +1,4 @@
+#Exercice 2
 def dichotomie(tab, x):
     """
         tab : tableau d’entiers trié dans l’ordre croissant
