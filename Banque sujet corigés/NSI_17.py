@@ -9,8 +9,7 @@ def RechercheMin(tab):
             m=i
             p=c
     return p
-            
-print(RechercheMin([5,3,2,2,4,1]))
+           
 
 #Exercice 2
 def separe(tab):
@@ -23,5 +22,3 @@ def separe(tab):
             tab[i], tab[j] = tab[j],tab[i]
             j = j-1
     return tab
-
-print(separe([1,0,0,0,1,1,0,1,1,0,1,0,1,1,1,0]))
