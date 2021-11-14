@@ -12,8 +12,6 @@ class Compte_bancaire:
         self.solde=self.solde+montant
         print("Dépot effectué, vous avez", self.solde, "€")
         
-        
-        
 lepetitbourge=Compte_bancaire(10, "Jean Louis Pasquier")
 
 
@@ -40,12 +38,14 @@ Daisy=Eleve("Daisy","2nd",12)
 Peach=Eleve("Peach","1ere",3)
 Harmonie=Eleve("Harmonie","1ere",18)
 
-#Exercice 2
+#Exercice 2.1
+from math import sqrt
 class TriangleRectangle:
     def __init__(self,cote1,cote2,hypothenuse):
         self.cote1=cote1
         self.cote2=cote2
         self.hypothenuse=hypothenuse
+    def constructeur(cote1,cote2):
+        hypothenuse=sqrt(cote1**2+cote2**2)
         
-def constructeur(cote1,cote2):
-    
+triangle=TriangleRectangle(6,8,10)
