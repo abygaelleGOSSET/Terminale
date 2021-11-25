@@ -49,3 +49,51 @@ class TriangleRectangle:
         hypothenuse=sqrt(cote1**2+cote2**2)
         
 triangle=TriangleRectangle(6,8,10)
+
+#Exo 4
+class Point:
+    def __init__(self,coo):
+        self.a=coo[0]
+        self.b=coo[1]
+        
+    def __repr__(self):
+        return "("+str(a)+","+str(b)+")"
+    
+    
+#Exo 5
+    
+def pgcd(a,b):
+    if b==0:
+        return a
+    else:
+        return pgcd(b,b%a)
+    
+class Fraction:
+    def __init__(self,num,denom):
+        self.num=num/pgcd(num,denom)
+        self.denom=denom/pgcd(num,denom)
+    
+    def __repr__(self):
+       if self.denom==1:
+           return str(self.num)
+       else:
+            return str(self.num)+"/"+str(self.denom)
+    
+    def __eq__(self,f2):
+        return self.num/self.denom==f2.num/f2.denom
+        
+    def __lt__(self,f2):
+        return self.num/self.denom<f2.num/f2.denom
+    
+    def __add__(self,f2):
+        if self.denom==f2.denom:
+            return Fraction(self.num+f2.num)
+        else:
+            return Fraction((self.num*f2.denom+f2.num*self.denom),(self.denom*f2.denom))
+    
+    def __mul__(self,f2):
+        return Fraction((self.num*f2.num),(self.denom*f2.denom))
+        
+        
+fraction=Fraction(10,2)
+fraction2=Fraction(20,4)
