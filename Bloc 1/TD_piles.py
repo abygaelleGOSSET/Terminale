@@ -53,6 +53,28 @@ def sommet_pile(pile):
     empiler(pile,n)
     return n
 
+def taille_pile(pile):
+    p=creer_pile()
+    c=0
+    p2=pile
+    for i in p2:
+        n=depiler(pile)
+        empiler(p,n)
+        c=c+1
+    p3=p
+    for i in p3:
+        depiler(p)
+        empiler(pile,i)
+    return c
+
+def inverser_pile(pile):
+    p=creer_pile()
+    for i in pile:
+        depiler(pile)
+        empiler(p,i)
+    return p
+
+
 #Exo 3
 def est_bien_parenthesee(str):
     pile=creer_pile()
