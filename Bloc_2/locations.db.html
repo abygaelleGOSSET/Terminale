@@ -39,4 +39,8 @@
 2. SELECT count(depart) FROM Locations
 3. SELECT count(depart) FROM Locations WHERE depart!=retour
 4.
+5. SELECT AVG(kilometrage) FROM Locations WHERE depart=retour
+6. SELECT * FROM locations JOIN Vehicules ON locations.vehicule=vehicules.immatriculation
+7. SELECT Vehicules.nom, immatriculation, locations.date, locations.kilometrage FROM locations JOIN vehicules ON locations.vehicule=vehicules.immatriculation
+8. 
 ```
