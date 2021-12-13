@@ -1,0 +1,10 @@
+#Exo 4 
+def occurence(str):
+    s=lecture(str)
+    d={}
+    for e in s:
+        if e in d:
+            d[e]=d[e]+1
+        else:
+            d[e]=1
+    return d
