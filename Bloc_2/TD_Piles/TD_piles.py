@@ -80,14 +80,11 @@ def evaluer_postfixee(post):
             empiler(pilenombre,e)
         else:
             
-    
-
-##
-##def est_operateur(exp):
-##    if exp=="+" or exp=="-" or exp=="*" or exp=="/":
-##        return True
-##    else:
-##        return False
+def est_operateur(exp):
+    if exp=="+" or exp=="-" or exp=="*" or exp=="/":
+        return True
+    else:
+        return False
     
 #Exo 7
     #Partie 1
@@ -95,16 +92,13 @@ def evaluer_postfixee(post):
 def est_balise_fermante(a):
     return a[0]=="<" and a[1]=="/" and a[len(a-1)]==">"
 
-    
 def est_paire_balise(a,b):
-    if a!=est_balise_fermante(a):
-        return False
-    for i in a:
-        if a[i]=="<" or ">" or "/":
-            None
-        else:
-            if a[i]!=b[i]:
-                return False
-    return True
-            
-    
+    return a[1:len(a)-1]==b[2:len(b)-1]
+
+    #Partie 2
+def verifier_html(s1):
+    s=html_to_str(s1)
+    p=creer_pile()
+    parser=MyHTMLParser(s)
+    for e in parser:
+        if e=="<"
