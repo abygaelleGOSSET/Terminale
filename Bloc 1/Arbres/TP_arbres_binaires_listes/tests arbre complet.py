@@ -18,3 +18,5 @@ def cree_arbre_complet(h, maxi):
         cree_arbre_complet(h-1,maxi)
 
 print(cree_arbre_complet(2,38))
+
+#Peut être faire un return du random, et l'ajouter dans la récursivité d'avant?
