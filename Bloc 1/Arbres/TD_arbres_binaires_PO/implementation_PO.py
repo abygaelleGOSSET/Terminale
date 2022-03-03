@@ -1,154 +1,160 @@
-from visualisation_arbre_PO import *
+from visualisation_arbre import *
 from random import randint
 
-# IMPLEMENTATION DE LA CLASSE NOEUD
+# PARTIE 1 - TRAVAIL PRELIMINAIRE Question 2
+arbre_cours=[2, [8, [6, [], []], [9, [], []]], [1, [7, [], []], []]]
+show(arbre_cours,"arbre_du_cours")
 
-class Noeud:
-    def __init__(self, valeur, gauche, droit):
-        self.valeur = valeur
-        self.gauche = gauche
-        self.droit = droit
+# PARTIE 1 - TRAVAIL PRELIMINAIRE Question 3
+arbre_vide=[]
+arbre_feuille=[1,[],[]]
+show(arbre_feuille,"feuille")
 
-# PARTIE 2 - CODE ET TESTS A ECRIRE
+# # PARTIE 2 - CODE ET TESTS A ECRIRE
 
-class Arbre:
-    def __init__(self, noeud=None):
-        self.racine = noeud
 
-    def est_vide(self):
-        '''
-        DOCUMENTATION :
-        Description de la fontion : Détermine si l'arbre est vide
-        return (bool) : True si l'arbre est vide, False sinon
-        
-        TESTS :
-        >>> arbre_cours.est_vide()
-        False
-        
-        >>> arbre_vide.est_vide()
-        True
-        
-        >>> arbre_feuille.est_vide()
-        False
-        '''
-        return self.racine==None
-
-    def est_feuille(self):
-        '''
-        DOCUMENTATION :
-        Description de la fontion : Détermine si l'arbre est une feuille
-        return (bool) : True si l'arbre est une feuille, False sinon
-        
-        TESTS :
-        >>> arbre_cours.est_feuille()
-        False
-        
-        >>> arbre_vide.est_feuille()
-        False
-        
-        >>> arbre_feuille.est_feuille()
-        True
-        '''
-        if self.est_vide():
-            return False
-        return self.racine.gauche is None and self.racine.droit is None
+def est_vide(arbre):
+    '''
+    DOCUMENTATION :
+    Description de la fontion : Détermine si un arbre est vide
+    arbre (list) : Arbre implémenté sous forme de listes imbriquées
+    return (bool) : True si l'arbre est vide, False sinon
     
-    def valeur_racine(self):
-        '''
-        DOCUMENTATION :
-        Description de la fontion : Renvoie la valeur de la racine de l'arbre
-        return (int, str, etc...) : Valeur de la racine de l'arbre
-        précondition : Il faut que l'arbre ait une racine
-        
-        TESTS :
-        >>> arbre_cours.valeur_racine()
-        2
-        
-        >>> arbre_feuille.valeur_racine()
-        3
-        '''
-        # Vérification de la précondition (voir énoncé : remarques importantes sur le travail)
-        assert not self.est_vide(), "L'arbre n'a pas de racine." # A compléter
-        return self.racine.valeur
-
-    def SAG(self):
-        '''
-        DOCUMENTATION :
-        Description de la fontion : Renvoie le sous-arbre gauche de l'arbre
-        return (Arbre) : sous-arbre gauche
-        précondition : Il faut que l'arbre ait un sous arbre gauche (qu'il ne soit ni vide, ni feuille)
-        
-        TESTS :
-        >>> affiche(arbre_cours.SAG())
-        (8, 6, 9)
-        
-        >>> arbre_feuille.SAG()
-        
-        '''
-        # Vérification de la précondition (voir énoncé : remarques importantes sur le travail)
-        assert not self.est_vide(), "L'arbre n'a pas de sous arbre gauche"
-        return Arbre(self.racine.gauche)
+    TESTS :
+    >>> est_vide(arbre_vide)
+    True
     
-    def SAD(self):
-        '''
-        DOCUMENTATION :
-        Description de la fontion : Renvoie le sous-arbre droit de l'arbre
-        return (Arbre) : sous-arbre droit
-        précondition : Il faut que l'arbre ait un sous arbre droit (qu'il ne soit ni vide, ni feuille)
-        
-        TESTS :
-        >>> arbre_cours.SAD()
-        Noeud(1, Noeud(7, None, None), None)
-        
-        
-        >>> arbre_feuille.SAD()
-        
-        '''
-        
-        assert not self.est_vide() , "L'arbre n'a pas de sous arbre droit"
-        return self.racine.droit
+    >>> est_vide(arbre_feuille)
+    False
     
-    def taille(self):
-        '''
-        DOCUMENTATION :
-        Description de la fontion : Calcule la taille d'un arbre
-        return (int) : Taille de l'arbre
-        
-        TESTS :
-        >>> arbre_vide.taille()
-        0
-        
-        >>> arbre_feuille.taille()
-        1
-        
-        >>> arbre_cours.taille()
-        6
-        '''
-        if self.est_vide():
-            return 0
-        return 1+self.racine.SAG.taille()+self.racine.SAD.taille()
+    >>> est_vide(arbre_cours)
+    False
+    '''
+    return arbre==[]
 
-    def hauteur(self):
-        '''
-        DOCUMENTATION :
-        Description de la fontion : Calcule la hauteur d'un arbre en respectant la convention
-                donnée dans l'énoncé
-        return (int) : Hauteur de l'arbre
-        
-        TESTS :
-        '''
-        #A compléter
+def est_feuille(arbre):
+    '''
+    DOCUMENTATION :
+    Description de la fontion : Détermine si l'arbre est une feuille
+    arbre (list) : Arbre implémenté sous forme de listes imbriquées
+    return (bool) : True si l'arbre est une feuille, False sinon
+    
+    TESTS :
+    >>> est_feuille(arbre_vide)
+    False
+    
+    >>> est_feuille(arbre_feuille)
+    True
+    
+    >>> est_feuille(arbre_cours)
+    False
+    '''
+    if est_vide(arbre)==True:
+        return False
+    return arbre[1]==[] and arbre[2]==[]
 
-    def est_egal(self, arbre):
-        '''
-        DOCUMENTATION :
-        Description de la fontion : détermine si deux arbres sont identiques ou différents
-        arbre (Arbre) : arbre sur lequel on va tester l'égalité
-        return (bool) : True si les deux arbres sont identiques, False sinon 
+
+def racine(arbre):
+    '''
+    DOCUMENTATION :
+    Description de la fontion : Renvoie la valeur du noeud racine
+    arbre (list) : Arbre implémenté sous forme de listes imbriquées
+    return (int, str, etc...) : Valeur du noeud racine
+    précondition : L'arbre ne doit pas être vide
+    
+    TESTS :
+    >>> racine(arbre_feuille)
+    1
+    
+    >>> racine(arbre_cours)
+    2
+    '''
+    # Vérification de la précondition (voir énoncé : remarques importantes sur le travail)
+    assert est_vide(arbre)==False, "L'arbre est vide"
+    return arbre[0]
+
+def SAG(arbre):
+    '''
+    DOCUMENTATION :
+    Description de la fontion : Renvoie le sous-arbre gauche de l'arbre
+    arbre (list) : Arbre implémenté sous forme de listes imbriquées
+    return (list) : sous-arbre gauche
+    précondition : L'arbre ne doit pas être vide
+    
+    TESTS :
+    >>> SAG(arbre_feuille)
+    []
+    
+    >>> SAG(arbre_cours)
+    [8, [6, [], []], [9, [], []]]
+    '''
+    # Vérification de la précondition (voir énoncé : remarques importantes sur le travail)
+    assert est_vide(arbre)==False, "L'arbre est vide et n'a donc pas d'abre gauche" # A compléter
+    return arbre[1]
+
+def SAD(arbre):
+    '''
+    DOCUMENTATION :
+    Description de la fontion : Renvoie le sous-arbre droit de l'arbre
+    arbre (list) : Arbre implémenté sous forme de listes imbriquées
+    return (list) : sous-arbre droit
+    précondition : L'arbre ne doit pas être vide
+    
+    TESTS :
+    >>> SAD(arbre_feuille)
+    []
+    
+    >>> SAD(arbre_cours)
+    [1, [7, [], []], []]
+    '''
+    # Vérification de la précondition (voir énoncé : remarques importantes sur le travail) 
+    assert est_vide(arbre)==False, "L'arbre est vide et n'a donc pas d'arbre droit"
+    return arbre[2]
+
+def taille(arbre):
+    '''
+    DOCUMENTATION :
+    Description de la fontion : Calcule la taille d'un arbre
+    arbre (list) : Arbre implémenté sous forme de listes imbriquées
+    return (int) : Taille de l'arbre
+    
+    TESTS :
+    >>> taille(arbre_vide)
+    0
+    
+    >>> taille(arbre_feuille)
+    1
+    
+    >>> taille(arbre_cours)
+    6
+    '''
+    if est_vide(arbre) :
+        return 0
+    else:    
+        return 1+taille(SAG(arbre))+taille(SAD(arbre))
+
         
-        TESTS :
-        '''
-        #A compléter   
+def hauteur(arbre):
+    '''
+    DOCUMENTATION :
+    Description de la fontion : Calcule la hauteur d'un arbre en respectant la convention
+            donnée dans l'énoncé
+    arbre (list) : Arbre implémenté sous forme de listes imbriquées
+    return (int) : Hauteur de l'arbre
+    
+    TESTS :
+    >>> hauteur(arbre_vide)
+    -1
+    
+    >>> hauteur(arbre_feuille)
+    0
+    '''
+    if est_vide(arbre):
+        return -1
+    elif est_feuille(arbre):
+        return 0
+    else:
+        return 1+max(hauteur(SAG),hauteur(SAD))
 
 def cree_arbre_complet(h, maxi):
     '''
@@ -157,10 +163,15 @@ def cree_arbre_complet(h, maxi):
             avec des valeurs de noeud aléatoires comprises entre 0 et maxi inclus
     h (int) : hauteur de l'arbre
     maxi (int) : valeur maximale des noeuds
-    return (Arbre) : arbre créé
+    return (list) : arbre créé
     '''
-    #A compléter   
-        
+    l=[]
+    for i in range(h):
+        c=0
+        while c!=2:
+            l.append(randint(0,maxi+1))
+            c+1
+
 def cree_peigne_gauche(h, maxi):
     '''
     DOCUMENTATION :
@@ -168,9 +179,9 @@ def cree_peigne_gauche(h, maxi):
             avec des valeurs de noeud aléatoires comprises entre 0 et maxi inclus
     h (int) : hauteur de l'arbre
     maxi (int) : valeur maximale des noeuds
-    return (Arbre) : arbre créé
+    return (list) : arbre créé
     '''
-    #A compléter 
+    # A compléter
 
 def cree_peigne_droit(h, maxi):
     '''
@@ -179,34 +190,46 @@ def cree_peigne_droit(h, maxi):
             avec des valeurs de noeud aléatoires comprises entre 0 et maxi inclus
     h (int) : hauteur de l'arbre
     maxi (int) : valeur maximale des noeuds
-    return (Arbre) : arbre créé
+    return (list) : arbre créé
     '''
-    #A compléter
+    # A compléter
+
+def est_egal(arbre1, arbre2):
+    '''
+    DOCUMENTATION :
+    Description de la fontion : détermine si deux arbres sont identiques ou différents
+    arbre1 (list) : Arbre implémenté sous forme de listes imbriquées
+    arbre2 (list) : Arbre implémenté sous forme de listes imbriquées
+    return (bool) : True si les deux arbres sont identiques, False sinon 
     
+    TESTS :
+    >>> est_egal([2,[3,[],[]],[]],[2,[3,[],[]],[]])
+    True
+    
+    >>> est_egal([2,[3,[],[]],[]],[7,[6,[],[]],[]])
+    False
+    
+    >>> est_egal([2,[3,[],[]],[]],[])
+    False
+    '''
+    return arbre1==arbre2
 
 if __name__ == '__main__':
     # Lancement des tests (laisser ces deux lignes de code inchangées)
     import doctest
-        
-    noeud = Noeud(2, Noeud(8, Noeud(6, None, None), Noeud(9, None, None)), Noeud(1, Noeud(7, None, None), None))
-    arbre_cours = Arbre(noeud)
-    #show(arbre_cours,"arbre_du_cours")
-
-    arbre_vide=Arbre()
-
-    noeud2=Noeud(3,None,None)
-    arbre_feuille=Arbre(noeud2)
-    #show(arbre_feuille,"feuille")
-        
-    # Creation d'un arbre complet de hauteur 3
-        # A compléter
-    
-    # Creation d'un peigne gauche de hauteur 3
-        # A compléter
-    
-    # Creation d'un peigne droit de hauteur 3
-        # A compléter
-
-# PARTIE 2 - Question 4
-    # A compléter
     doctest.testmod(optionflags=doctest.NORMALIZE_WHITESPACE | doctest.ELLIPSIS, verbose=False)
+    
+    arbre_complet=cree_arbre_complet(3,9)
+    peigne_gauche=cree_peigne_gauche(3,9)
+    peigne_droit=cree_peigne_droit(3,9)
+    
+print(arbre_complet)
+print(peigne_gauche)
+print(peigne_droit)
+show(arbre_complet,"complet")
+show(arbre_gauche,"peigne gauche")
+show(arbre_droit,"peigne droit")
+
+    
+    # PARTIE 2 - Question 4 
+    # A compléter
